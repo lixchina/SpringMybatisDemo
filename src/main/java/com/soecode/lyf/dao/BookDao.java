@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import com.soecode.lyf.entity.Book;
 
 public interface BookDao {
+	
+	void addBook(Book book);
 
 	/**
 	 * 閫氳繃ID鏌ヨ鍗曟湰鍥句功

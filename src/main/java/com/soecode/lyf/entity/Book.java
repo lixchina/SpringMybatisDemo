@@ -1,20 +1,24 @@
 package com.soecode.lyf.entity;
 
+import java.io.InputStream;
+
 /**
  * 图书实体
  */
 public class Book {
 
-	private long bookId;// 图书ID
+	private int bookId;// 图书ID
 
 	private String name;// 图书名称
 
 	private int number;// 馆藏数量
-
+	
+	private byte[] cover;
+	
 	public Book() {
 	}
 
-	public Book(long bookId, String name, int number) {
+	public Book(int bookId, String name, int number) {
 		this.bookId = bookId;
 		this.name = name;
 		this.number = number;
@@ -24,7 +28,7 @@ public class Book {
 		return bookId;
 	}
 
-	public void setBookId(long bookId) {
+	public void setBookId(int bookId) {
 		this.bookId = bookId;
 	}
 
@@ -42,6 +46,14 @@ public class Book {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+	
+	public byte[] getCover() {
+		return cover;
+	}
+
+	public void setCover(byte[] cover) {
+		this.cover = cover;
 	}
 
 	@Override
