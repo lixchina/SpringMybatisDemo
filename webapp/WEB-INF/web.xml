@@ -1,11 +1,25 @@
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1" metadata-complete="true">
-	<!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
-	<!-- 配置DispatcherServlet -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (1) -->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+    
+    <!-- サーブレットコンテキストリスナーの定義  -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring/applicationContext.xml
+        </param-value>
+    </context-param>
+    
+    
+	<!-- Spring MVCのエントリポイントとなるDispatcherServletの定義 -->
 	<servlet>
-		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<!-- 配置springMVC需要加载的配置文件
 			spring-dao.xml,spring-service.xml,spring-web.xml
@@ -13,16 +27,46 @@
 		 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-*.xml</param-value>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
 		</init-param>
-		    <load-on-startup>1</load-on-startup>
+		<load-on-startup>1</load-on-startup>
     	<multipart-config>
         	<location>D:\\tmp</location>
     	</multipart-config>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>mvc-dispatcher</servlet-name>
-		<!-- 默认匹配所有的请求 -->
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+	
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+	
+	<!--  JSPの共通定義  -->
+	<jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+            <page-encoding>UTF-8</page-encoding>
+            <scripting-invalid>false</scripting-invalid>
+            <include-prelude>/WEB-INF/view/common/include.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+    
+    <!--  エラーページの定義 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/common/error/systemError.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/common/error/resourceNotFoundError.jsp</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/views/common/error/unhandledSystemError.html</location>
+    </error-page>
+     -->
+    
+
 </web-app>
