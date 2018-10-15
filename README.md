@@ -12,8 +12,10 @@ username: username
 password: password
 ```
 ### 初期テーブル作成  
-src/main/sql/schema.sqlの中のDDLをSQLServerにて実行して、テーブルを作成しておく。  
-
+以下のファイルに記載されているDDLをSQLServerにて実行して、テーブルを作成しておく。
+```
+src/main/sql/schema.sql 
+```
 
 ### 起動＆確認  
 Tomcat/JBossサーバに起動し終わったら、ブラウザを立ち上げて、以下のURLを入力する  
