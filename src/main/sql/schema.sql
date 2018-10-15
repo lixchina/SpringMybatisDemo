@@ -1,6 +1,6 @@
 CREATE TABLE book (
   book_id int,
   name varchar(100) ,
-  number int,
+  price int,
   cover image
 )

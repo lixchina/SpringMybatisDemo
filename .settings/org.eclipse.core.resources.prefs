@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java/appname/bl/dao/BookDao.java=UTF-8
 encoding//src/main/java/appname/bl/service/BookService.java=UTF-8
 encoding//src/main/java/appname/bl/service/impl/BookServiceImpl.java=UTF-8
-encoding//webapp/WEB-INF/view/list.jsp=UTF-8
+encoding//webapp/WEB-INF/tiles/definition.xml=UTF-8
+encoding//webapp/WEB-INF/views/list.jsp=UTF-8

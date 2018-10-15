@@ -8,13 +8,9 @@ public interface BookDao {
 	
 	void addBook(Book book);
 
-
-	Book queryById(long id);
-
+	Book queryById(int bookId);
 
 	List<Book> queryAll();
-
-
-	int reduceNumber(long bookId);
-
+	
+	byte[] getCoverByID(int bookId);
 }

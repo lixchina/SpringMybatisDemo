@@ -1,5 +1,7 @@
 package appname.bl.service.impl;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,19 +25,30 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void addBook(Book book) {
 		book.setBookId(1);
-		book.setNumber(2);
 		bookDao.addBook(book);
 	}
 
 
 	@Override
-	public Book getById(long bookId) {
+	public Book getById(int bookId) {
 		return bookDao.queryById(bookId);
 	}
 
 	@Override
 	public List<Book> getList() {
-		return bookDao.queryAll();
+		List<Book> list = bookDao.queryAll();
+		List<Book> list2 = new ArrayList<Book>();
+		for(int i=0;i<list.size();i++) {
+			Book book = list.get(i);
+			book.setCoverBase64(new String(Base64.getEncoder().encode(book.getCover())));
+			list2.add(book);
+		};
+		return list2;
 	}
+	
+	@Override
+	public byte[] getCoverByID(int bookId) {
+		return bookDao.getCoverByID(bookId);
+	};
 
 }

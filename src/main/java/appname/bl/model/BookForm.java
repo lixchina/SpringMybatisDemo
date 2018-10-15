@@ -13,9 +13,10 @@ public class BookForm implements Serializable {
     @NotEmpty
     private String bookName;
 
-    private String price;
+    private int price;
 	
     private byte[] cover;
+    
 
 	public String getBookId() {
 		return bookId;
@@ -33,11 +34,11 @@ public class BookForm implements Serializable {
 		this.bookName = bookName;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
@@ -48,7 +49,6 @@ public class BookForm implements Serializable {
 	public void setCover(byte[] cover) {
 		this.cover = cover;
 	}
-
-    
+  
     
 }

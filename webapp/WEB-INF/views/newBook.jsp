@@ -7,9 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
-<link href="<c:url value="/css/bootstrap-theme.min.css" />" rel="stylesheet">
-<script src="<c:url value="/js/bootstrap.min.js" />"></script>
+
  
 <title>newBook</title>
 </head>

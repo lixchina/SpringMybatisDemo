@@ -7,7 +7,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,7 +26,7 @@ import appname.bl.model.BookForm;
 import appname.bl.service.BookService;
 
 @Controller
-@RequestMapping("/book") // url:/模块/资源/{id}/细分 /seckill/list
+@RequestMapping("/book")
 public class BookController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -73,22 +71,23 @@ public class BookController {
     	
         Book book = new Book();
         book.setName(form.getBookName());
+        book.setPrice(form.getPrice());
         book.setCover(form.getCover());
         bookService.addBook(book);
         model.addAttribute("book", book);
-        return "result";
+        return "redirect:/book/list";
     }
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	private String list(Model model) {
 		List<Book> list = bookService.getList();
 		model.addAttribute("list", list);
-		// list.jsp + model = ModelAndView
-		return "list";// WEB-INF/jsp/"list".jsp
+		return "list";
 	}
 
+
 	@RequestMapping(value = "/{bookId}/detail", method = RequestMethod.GET)
-	private String detail(@PathVariable("bookId") Long bookId, Model model) {
+	private String detail(@PathVariable("bookId") Integer bookId, Model model) {
 		if (bookId == null) {
 			return "redirect:/book/list";
 		}

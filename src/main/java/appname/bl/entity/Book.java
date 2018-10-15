@@ -6,17 +6,19 @@ public class Book {
 
 	private String name;// 
 
-	private int number;// 
+	private int price;// 
 	
 	private byte[] cover;
+	
+	private String coverBase64;
 	
 	public Book() {
 	}
 
-	public Book(int bookId, String name, int number) {
+	public Book(int bookId, String name, int price) {
 		this.bookId = bookId;
 		this.name = name;
-		this.number = number;
+		this.price = price;
 	}
 
 	public long getBookId() {
@@ -35,12 +37,12 @@ public class Book {
 		this.name = name;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 	public byte[] getCover() {
@@ -50,10 +52,18 @@ public class Book {
 	public void setCover(byte[] cover) {
 		this.cover = cover;
 	}
+	
+	public String getCoverBase64() {
+		return coverBase64;
+	}
+
+	public void setCoverBase64(String coverBase64) {
+		this.coverBase64 = coverBase64;
+	}
 
 	@Override
 	public String toString() {
-		return "Book [bookId=" + bookId + ", name=" + name + ", number=" + number + "]";
+		return "Book [bookId=" + bookId + ", name=" + name + ", price=" + price + "]";
 	}
 
 }
