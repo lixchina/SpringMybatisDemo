@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JenkinsSample" default="unit-test" basedir=".">
+    <property name="webapp" value="${basedir}/webapp"/>
+    
+    <property name="lib.dir" value="lib"/>
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+    
+    <property name="compile.src" location="${basedir}/src/main/java"/>
+    <property name="compile.resources" location="${basedir}/src/main/resources"/>
+    <property name="compile.dest" location="${basedir}/build/classes"/>
+    <property name="compile.test.src" location="${basedir}/src/test/java"/>
+    <property name="compile.test.resources" location="${basedir}/src/test/resources"/>
+    <property name="compile.test.dest" location="${basedir}/build/classes"/>
+    <!-- <property name="tomcat.dir" value="/usr/local/tomcat/lib"/> -->
+    <property name="findbugs.dir" value="${basedir}/findbugs"/>
+    <property name="report.dir" value="${basedir}/report"/>
+    <property name="report.test.dir" value="${basedir}/report/test"/>
+    <!-- =================================
+          target: init
+         ================================= -->
+    <target name="init" description="initialize">
+        <mkdir dir="${report.test.dir}"/>
+        <!-- <delete file="${report.dir}/test/**.xml"/> -->
+    </target>
+    <!-- =================================
+          target: compile
+         ================================= -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${compile.dest}"/>
+        <javac srcdir="${compile.src}" destdir="${compile.dest}" encoding="UTF-8"
+            includeantruntime="false">
+            <classpath>
+                <fileset dir="${basedir}/lib/release">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+        <copy todir="${compile.dest}">
+            <fileset dir="${compile.resources}"/>
+        </copy>
+    </target>
+    <target name="test-compile">
+        <mkdir dir="${compile.test.dest}"/>
+        <javac srcdir="${compile.test.src}" destdir="${compile.test.dest}" encoding="UTF-8"
+            includeantruntime="false">
+            <classpath>
+                <fileset dir="${basedir}/lib/release">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${basedir}/lib/test">
+                    <include name="*.jar"/>
+                </fileset> 
+            </classpath>
+        </javac>
+        <copy todir="${compile.dest}">
+            <fileset dir="${compile.test.resources}"/>
+        </copy>
+    </target>
+    <!-- =================================
+          target: checkstyle
+    ================================= -->
+    <!-- 
+    <target name="checkstyle" >
+        <taskdef resource="checkstyletask.properties"
+                   classpath="${basedir}/checkstyle-5.5-all.jar" />
+         <checkstyle config="${basedir}/checkstyle.xml">
+            <fileset dir="${basedir}"
+                includes="**/*.java"
+                excludes="test/**"/>
+             <formatter type="xml" tofile="${report.dir}/checkstyle_report.xml"/>
+        </checkstyle>
+    </target>
+     -->
+    <!-- =================================
+          target: findbugs
+    ================================= -->
+    <target name="findbugs">
+        <mkdir dir="${report.dir}"/>
+        <taskdef name="findbugs"
+            classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+            classpath="${findbugs.dir}/lib/findbugs-ant.jar">
+        </taskdef>
+        <findbugs home="${findbugs.dir}"
+                  output="xml"
+                  outputFile="${report.dir}/findbugs_report.xml" >
+            <class location="${compile.dest}" />
+        </findbugs>
+      </target>
+    <!-- =================================
+          target: junit
+    ================================= -->
+    <target name="unit-test" depends="init,compile,test-compile,findbugs" description="execute Junit">
+        <delete>
+            <fileset dir="${report.test.dir}" includes="Test-*"/>
+        </delete>
+        <junit fork="yes" haltonfailure="false"  >
+        <formatter type="xml" usefile="true" />
+            <classpath>
+                <fileset dir="${basedir}/lib/release">
+                   <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${basedir}/lib/test">
+                   <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${compile.dest}"/>
+                <pathelement location="${compile.test.dest}"/>
+            </classpath>
+            <batchtest fork="yes" todir="${report.test.dir}" >
+                <fileset dir="${compile.test.src}" >
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+    <!-- =================================
+            target: clean
+        ================================= -->
+    <target name="clean" description="clean up">
+        <delete dir="${compile.dest}"/>
+        <delete dir="${compile.test.dest}"/>
+    </target>
+</project>

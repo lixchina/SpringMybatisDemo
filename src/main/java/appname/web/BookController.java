@@ -49,7 +49,7 @@ public class BookController {
             return "newBook";
         }
         
-    	//TODO 50000¤Ï¥×¥í¥Ñ¥Æ¥£¥Õ¥¡¥¤¥ë¤è¤êÈ¡µÃ¤¹¤ë¤è¤¦‰ä¸ü
+    	//TODO 
         if (file.getSize() > 50000) {
             result.rejectValue("cover", "error.fileSize",
                     new Object[]{50000},"File size error");

@@ -8,6 +8,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+
+<script language="javascript">
+$(document).ready(function(){
+$("#pdfDownload").click(function () {
+	$.download('${pageContext.request.contextPath}/download/pdf/Codelife.pdf','filename=aaa&format=pdf','POST');
+});
+});
+</script>
  
 <title>newBook</title>
 </head>
@@ -39,5 +47,6 @@
         </div>
     </form:form>
     </div>
+    
 </body>
 </html>

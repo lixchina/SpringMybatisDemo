@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
+	
+	<!-- mybatis  -->
+	<!-- 1.database properties：${url} -->
+	<context:property-placeholder location="classpath:jdbc-ut.properties" />
+
+	<!-- 2. collenction pool -->
+	<!-- 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+	</bean>
+	-->
+	
+	
+    
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="${jdbc.driver}"/>
+      <property name="url" value="${jdbc.url}" />
+      <property name="username" value="${jdbc.username}" />
+      <property name="password" value="${jdbc.password}" />
+   </bean>
+   
+   
+
+
+	<!-- 3.SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- dataSource inject -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- MyBaties config:mybatis-config.xml -->
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<!-- entity aliaese -->
+		<property name="typeAliasesPackage" value="appname.bl.entity" />
+		<!-- sql:mapper xml -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+
+	<!-- 4.Dao -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- sqlSessionFactory -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- Scan Dao package -->
+		<property name="basePackage" value="appname.bl.dao" />
+	</bean>
+	
+	<!-- transaction-manager -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 注入数据库连接池 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+
+	<!-- transaction-manager -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<!-- springと一緒にdbunitを使うときは以下のようにdataSourceをラップする -->
+   <bean id="dataSourceTest"
+    class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+    <constructor-arg ref="dataSource" />
+   </bean>
+	
+</beans>

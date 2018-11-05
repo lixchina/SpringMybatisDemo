@@ -2,7 +2,6 @@ package appname.bl.model;
 
 
 import java.io.Serializable;
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class BookForm implements Serializable {
 
@@ -10,7 +9,6 @@ public class BookForm implements Serializable {
 
     private String bookId;
 
-    @NotEmpty
     private String bookName;
 
     private int price;

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+ 
+<tiles-definitions>  
+  
+   <!-- Base Definition -->
+   <definition name="base-definition"
+       template="/WEB-INF/views/common/layout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />    
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />  
+   </definition>  
+  
+   <!-- New Book Page -->
+   <definition name="newBook" extends="base-definition">  
+       <put-attribute name="title" value="New Book" />  
+       <put-attribute name="body" value="/WEB-INF/views/newBook.jsp" />  
+   </definition>  
+
+   <definition name="list" extends="base-definition">  
+       <put-attribute name="title" value="Book List" />  
+       <put-attribute name="body" value="/WEB-INF/views/list.jsp" />  
+   </definition>  
+  
+</tiles-definitions>

@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
     <title><tiles:getAsString name="title" /></title>
 	<link href="<c:url value="/static/css/bootstrap.min.css" />" rel="stylesheet">
 	<script src="<c:url value="/static/js/bootstrap.min.js" />"></script>

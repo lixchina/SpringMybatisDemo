@@ -36,14 +36,15 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getList() {
-		List<Book> list = bookDao.queryAll();
+		List<Book> list = new ArrayList<Book>();
+		/*List<Book> list = bookDao.queryAll();
 		List<Book> list2 = new ArrayList<Book>();
 		for(int i=0;i<list.size();i++) {
 			Book book = list.get(i);
 			book.setCoverBase64(new String(Base64.getEncoder().encode(book.getCover())));
 			list2.add(book);
-		};
-		return list2;
+		};*/
+		return list;
 	}
 	
 	@Override
